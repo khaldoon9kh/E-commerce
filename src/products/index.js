@@ -1,6 +1,6 @@
-import '@fortawesome/fontawesome-free/css/all.min.css'; import
-'bootstrap-css-only/css/bootstrap.min.css'; import
-'mdbreact/dist/css/mdb.css';
+import '@fortawesome/fontawesome-free/css/all.min.css'; 
+import 'bootstrap-css-only/css/bootstrap.min.css'; 
+import 'mdbreact/dist/css/mdb.css';
 import React, {useState, useEffect} from 'react';
 import db from '../firebaseConfig'
 import Product from '../product'
@@ -22,8 +22,12 @@ import Product from '../product'
 const Products = () => {
     const [productData, setProductData] = useState([])
     const fetchData = async ()=>{
-        const usersRes = await db.collection('TestProducts').get();
-        const usersData = usersRes.docs.map(user => user.data())
+        const usersRes = await db.collection('TestProducts').get()
+        const usersData = usersRes.docs.map(user =>  {
+                const data = user.data();
+                const id = user.id; 
+            return {id,...data};
+            })
        setProductData(usersData)
        console.log(usersData)
     }
@@ -32,8 +36,7 @@ const Products = () => {
         fetchData()
     },[])
 
-    return (productData.map(product=> <div>
-        <Product {...product} />
-        </div>))
+    return productData.map(product=> <Product {...product}  />)
+    
 }
 export default Products

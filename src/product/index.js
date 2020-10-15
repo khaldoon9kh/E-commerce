@@ -1,15 +1,17 @@
 import React from "react";
-import { MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText, MDBTooltip, MDBCardFooter, MDBBtn, MDBIcon} from "mdbreact";
+import { MDBCol, MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText, MDBTooltip, MDBCardFooter, MDBBtn, MDBIcon} from "mdbreact";
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Link,
   useRouteMatch,
-  useParams
+  useParams,
+  render
 } from "react-router-dom";
 
 const Product = (props) => {
+  console.log(props)
   const [stockNum, setStokNum] = React.useState(props.stockNamber)
   const [likesNumber, setlikesNum] = React.useState(props.likes)
 
@@ -21,33 +23,29 @@ const Product = (props) => {
     setStokNum(stockNum-1)
   }
   
-  const handlePicClick=()=>{
-  }
-  console.log(props)
   return (
-    // <Link to ={{pathname:`/${props.name}`}} >
+    <MDBCol>
     <MDBCard className="m-2" style={{ width: "22rem" }} cascade ecommerce narrow>
-      <MDBCardImage cascade top src={props.imgLink} waves onClick={handlePicClick} />
+    <Link to={`/Details_product/${props.id}`}>
+      <MDBCardImage cascade top src={props.imgLink} waves />
+      </Link>
       <MDBCardBody cascade className="text-center">
         <MDBCardTitle>
-          <Link to={`/Details_product/${props.name}`}> {props.name}</Link>
-          <strong>{props.name}</strong>
-          
+          <Link to={`/Details_product/${props.id}`}>{props.name}</Link>
         </MDBCardTitle>
         <MDBCardText>
-        {props.description}
-        Likes: {likesNumber}
+        Likes: {likesNumber} 
+        </MDBCardText>
+        <MDBCardText>
         Stock Number:{stockNum}
         </MDBCardText>
+        <MDBCardText>
+        Description :  {props.description}
+        </MDBCardText>
+       
         <MDBCardFooter>
           <span className="float-left">{props.price}$</span>
           <span className="float-right">
-            <MDBTooltip placement="top">
-              <MDBBtn tag="a" href="https://mdbootstrap.com" target="_blank" color="transparent" size="lg" className="p-1 m-0 mr-2 z-depth-0" >
-                  <MDBIcon icon="eye"/>
-              </MDBBtn>
-              <div>Quick Look</div>
-            </MDBTooltip>
             <MDBTooltip placement="top">
               <MDBBtn tag="a" color="transparent" size="lg" className="p-1 m-0 z-depth-0" onClick={handleOnLike}>
                 <MDBIcon  icon="heart" className="red-text"/>
@@ -64,7 +62,7 @@ const Product = (props) => {
         </MDBCardFooter>
       </MDBCardBody>
     </MDBCard>
-    //</Link>
+    </MDBCol>
   );
 }
 
