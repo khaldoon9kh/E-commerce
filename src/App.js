@@ -13,11 +13,24 @@ import {
   render
 } from "react-router-dom";
 import { MDBRow} from "mdbreact";
-
+//import { AuthProvider } from "./Auth";
+import {CartContext} from './product';
+import About from './about.js'
 
 
 function App() {
+  const [cart, setCart] = React.useState([]);
+
   return (
+    // <AuthProvider>
+      // {/* <CartContext.Provider value={{
+      //   items: cart,
+      //   addItem: (item) => {
+      //     setCart((oldCart) => {
+      //       return [...oldCart, item];
+      //     })
+      //   }
+      // }}> */}
     <div>
       <Nav/>
     <Router>
@@ -25,11 +38,15 @@ function App() {
         <Switch>
           <Route exact path = "/" component={Products} />
             <Route exact path="/Details_product/:id" render={(props) => <Details_product {...props} />} />
+          <Route export path = "/about" component={About} />
         </Switch>
       </div>
     </Router>
    </div>
-  );
+     );
+   {/* </CartContext> */}
+  //  </AuthProvider>
+
 }
 
 //  
